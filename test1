@@ -16,11 +16,9 @@
       --danger:#ef4444;
       --shadow: 0 10px 30px rgba(0,0,0,.35);
       --radius: 22px;
-      --radius2: 16px;
       --focus: 0 0 0 3px rgba(34,197,94,.25);
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
     }
-
     *{box-sizing:border-box}
     body{
       margin:0;
@@ -34,7 +32,6 @@
                   var(--bg);
       color:var(--text);
     }
-
     .card{
       width:min(920px, 100%);
       background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
@@ -43,12 +40,10 @@
       box-shadow: var(--shadow);
       overflow:hidden;
     }
-
     .header{
       padding:22px 22px 14px;
       border-bottom:1px solid rgba(255,255,255,.05);
     }
-
     .titleRow{
       display:flex;
       align-items:center;
@@ -56,10 +51,8 @@
       gap:12px;
       margin-bottom:14px;
     }
-
     h1{font-size:18px;margin:0}
     .sub{font-size:12px;color:var(--muted)}
-
     .stepMeta{
       display:flex;
       align-items:center;
@@ -68,17 +61,13 @@
       color:var(--muted);
       margin-bottom:10px;
     }
-
     .bar{height:8px;background:rgba(255,255,255,.06);border-radius:999px;overflow:hidden}
     .bar > div{height:100%;background:linear-gradient(90deg,var(--emerald),var(--emerald2));width:0%;transition:width .25s ease}
-
     .dots{display:grid;grid-template-columns:repeat(10,1fr);gap:6px;margin-top:10px}
     .dot{height:6px;border-radius:999px;background:rgba(255,255,255,.06)}
     .dot.done{background:rgba(34,197,94,.9)}
     .dot.active{background:rgba(34,197,94,.45)}
-
     .content{padding:22px}
-
     .error{
       display:none;
       background:rgba(239,68,68,.12);
@@ -89,20 +78,14 @@
       margin-bottom:14px;
       font-size:14px;
     }
-
     .screen{display:none;animation:fade .18s ease}
     .screen.active{display:block}
-
     @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
-
     h2{margin:0 0 6px;font-size:18px}
     p.helper{margin:0 0 18px;color:var(--muted);font-size:13px;line-height:1.35}
-
     .grid2{display:grid;grid-template-columns:1fr;gap:12px}
     @media (min-width:720px){.grid2{grid-template-columns:1fr 1fr}}
-
     label{font-size:12px;color:var(--muted);display:block;margin:0 0 6px}
-
     input[type="text"], input[type="email"], input[type="tel"], textarea, select{
       width:100%;
       border-radius:18px;
@@ -113,9 +96,7 @@
       outline:none;
     }
     input:focus, textarea:focus, select:focus{box-shadow:var(--focus);border-color:rgba(34,197,94,.6)}
-
     textarea{min-height:120px;resize:vertical}
-
     .preview{
       margin-top:12px;
       border:1px solid rgba(255,255,255,.07);
@@ -123,13 +104,10 @@
       border-radius:18px;
       padding:12px;
     }
-
     .preview .name{font-weight:700}
     .preview .meta{color:var(--muted);font-size:13px;margin-top:6px}
-
     .optGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
     @media (min-width:720px){.optGrid.cols4{grid-template-columns:repeat(4,1fr)} .optGrid.cols3{grid-template-columns:repeat(3,1fr)}}
-
     .opt{
       border:1px solid rgba(255,255,255,.08);
       background:rgba(255,255,255,.02);
@@ -142,9 +120,7 @@
       transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease, background .12s ease;
       user-select:none;
     }
-
     .opt:hover{transform:translateY(-1px);box-shadow:0 8px 18px rgba(0,0,0,.25)}
-
     .opt .icon{
       height:40px;width:40px;
       border-radius:14px;
@@ -152,31 +128,18 @@
       background:rgba(255,255,255,.06);
       border:1px solid rgba(255,255,255,.06);
     }
-
     .opt .label{font-weight:700;font-size:14px;line-height:1.1}
     .opt .sub{font-size:12px;color:var(--muted);margin-top:2px}
-
     .opt.on{border-color:rgba(34,197,94,.8);background:rgba(34,197,94,.08)}
     .opt.on .icon{background:rgba(34,197,94,.9);border-color:rgba(34,197,94,.7)}
     .opt.on .icon svg{color:white}
-
     .opt .check{margin-left:auto;opacity:0;transition:opacity .12s ease}
     .opt.on .check{opacity:1}
-
-    .pillRow{display:flex;gap:10px;flex-wrap:wrap}
-
     .colorDot{height:18px;width:18px;border-radius:999px;border:1px solid rgba(255,255,255,.18)}
-
     .rangeBox{border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.02);border-radius:var(--radius);padding:14px}
     .rangeTop{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
     .rangeTop .lbl{display:flex;align-items:center;gap:8px;font-weight:700;font-size:13px}
     .rangeTop .val{color:var(--muted);font-size:13px}
-
-    .rangeRow{display:grid;grid-template-columns:1fr;gap:10px}
-    @media (min-width:720px){.rangeRow{grid-template-columns:1fr 1fr}}
-
-    input[type="range"]{width:100%}
-
     .nav{
       margin-top:18px;
       display:flex;
@@ -184,7 +147,6 @@
       justify-content:space-between;
       gap:12px;
     }
-
     button{
       border:0;
       border-radius:18px;
@@ -198,25 +160,14 @@
       background:rgba(255,255,255,.06);
       border:1px solid rgba(255,255,255,.10);
     }
-
     button.secondary{background:transparent}
-
-    button.primary{
-      background:rgba(255,255,255,.08);
-    }
-
+    button.primary{background:rgba(255,255,255,.08)}
     button.primary.ready{
       background:linear-gradient(90deg,var(--emerald),var(--emerald2));
       border-color:rgba(34,197,94,.55);
     }
-
     button:disabled{opacity:.45;cursor:not-allowed}
-
-    .thanks{
-      text-align:center;
-      padding:18px 0 8px;
-    }
-
+    .thanks{text-align:center;padding:18px 0 8px}
     .badge{
       width:56px;height:56px;margin:0 auto 12px;
       border-radius:22px;
@@ -224,16 +175,58 @@
       display:grid;place-items:center;
       box-shadow:0 12px 28px rgba(34,197,94,.25);
     }
-
     .fine{margin-top:16px;font-size:12px;color:var(--muted)}
-
-    .makeRow{display:flex;align-items:center;gap:10px}
-    .makeIcon{height:22px;width:22px;border-radius:8px;background:rgba(255,255,255,.06);display:grid;place-items:center;font-size:10px;font-weight:900;border:1px solid rgba(255,255,255,.08)}
-
     .srOnly{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border-width:0}
-
-    /* Simple inline SVG styling */
     svg{width:18px;height:18px;color:currentColor}
+
+    /* Dual slider like screenshot */
+    .dualWrap{position:relative;padding:6px 2px 2px}
+    .dualTrack{
+      position:relative;height:8px;border-radius:999px;
+      background:rgba(255,255,255,.10);
+      overflow:hidden;margin:10px 6px 2px;
+    }
+    .dualFill{
+      position:absolute;top:0;height:100%;
+      left:0;width:0;
+      background: rgba(239,68,68,.95);
+      border-radius:999px;
+    }
+    .dualRanges{position:relative;height:32px;margin-top:-18px;display:block}
+    .dualRanges input[type="range"]{
+      position:absolute;left:0;right:0;top:0;width:100%;
+      background:transparent;
+      -webkit-appearance:none;appearance:none;
+      pointer-events:none;height:32px;margin:0;
+    }
+    .dualRanges input[type="range"]::-webkit-slider-runnable-track{height:8px;background:transparent;border:none}
+    .dualRanges input[type="range"]::-moz-range-track{height:8px;background:transparent;border:none}
+    .dualRanges input[type="range"]::-webkit-slider-thumb{
+      -webkit-appearance:none;appearance:none;
+      pointer-events:auto;height:24px;width:24px;border-radius:999px;
+      background:#0f1620;border:3px solid rgba(239,68,68,.95);
+      box-shadow:0 10px 18px rgba(0,0,0,.35);
+      margin-top:-8px;
+    }
+    .dualRanges input[type="range"]::-moz-range-thumb{
+      pointer-events:auto;height:24px;width:24px;border-radius:999px;
+      background:#0f1620;border:3px solid rgba(239,68,68,.95);
+      box-shadow:0 10px 18px rgba(0,0,0,.35);
+    }
+
+    .summaryBox{
+      margin:14px auto 0;max-width:720px;text-align:left;
+      border:1px solid rgba(255,255,255,.07);
+      background:rgba(255,255,255,.03);
+      border-radius:18px;padding:12px;overflow:auto;
+    }
+    .summaryBox pre{
+      margin:0;white-space:pre-wrap;word-break:break-word;
+      color:rgba(231,238,246,.95);font-size:13px;line-height:1.35;
+    }
+    .linkRow{margin-top:12px;font-size:13px;color:var(--muted)}
+    .linkRow a{color:rgba(34,197,94,.95);text-decoration:none;font-weight:800}
+    .linkRow a:hover{text-decoration:underline}
   </style>
 </head>
 <body>
@@ -289,9 +282,7 @@
         </div>
 
         <div class="nav" style="justify-content:flex-end">
-          <button class="primary" id="nextBtn0" type="button" aria-label="Next">Next
-            <span aria-hidden="true">→</span>
-          </button>
+          <button class="primary" id="nextBtn0" type="button" aria-label="Next">Next <span aria-hidden="true">→</span></button>
         </div>
       </section>
 
@@ -357,12 +348,11 @@
             <div class="lbl">📅 Vehicle age</div>
             <div class="val" id="yearVal">2010 – 2026</div>
           </div>
-          <div class="rangeRow">
-            <div>
+          <div class="dualWrap">
+            <div class="dualTrack" aria-hidden="true"><div class="dualFill" id="yearFill"></div></div>
+            <div class="dualRanges">
               <label class="srOnly" for="yearMin">Year min</label>
               <input id="yearMin" type="range" min="2010" max="2026" step="1" />
-            </div>
-            <div>
               <label class="srOnly" for="yearMax">Year max</label>
               <input id="yearMax" type="range" min="2010" max="2026" step="1" />
             </div>
@@ -375,12 +365,11 @@
             <div class="lbl">⛽ Mileage</div>
             <div class="val" id="mileVal">0 – 300,000 km</div>
           </div>
-          <div class="rangeRow">
-            <div>
+          <div class="dualWrap">
+            <div class="dualTrack" aria-hidden="true"><div class="dualFill" id="mileFill"></div></div>
+            <div class="dualRanges">
               <label class="srOnly" for="mileMin">Mileage min</label>
               <input id="mileMin" type="range" min="0" max="300000" step="5000" />
-            </div>
-            <div>
               <label class="srOnly" for="mileMax">Mileage max</label>
               <input id="mileMax" type="range" min="0" max="300000" step="5000" />
             </div>
@@ -392,12 +381,11 @@
             <div class="lbl">💵 Budget</div>
             <div class="val" id="budgetVal">$5,000 – $100,000</div>
           </div>
-          <div class="rangeRow">
-            <div>
+          <div class="dualWrap">
+            <div class="dualTrack" aria-hidden="true"><div class="dualFill" id="budgetFill"></div></div>
+            <div class="dualRanges">
               <label class="srOnly" for="budgetMin">Budget min</label>
               <input id="budgetMin" type="range" min="5000" max="100000" step="500" />
-            </div>
-            <div>
               <label class="srOnly" for="budgetMax">Budget max</label>
               <input id="budgetMax" type="range" min="5000" max="100000" step="500" />
             </div>
@@ -480,9 +468,20 @@
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 6L9 17l-5-5" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
           <h2 id="s10Title">Thanks for your time</h2>
-          <p class="helper" style="margin-top:8px">We will contact you as soon as we find something that will meet our criteria.</p>
+          <p class="helper" style="margin-top:8px">
+            You have successfully submitted the form. We will contact you as soon as we find something that will meet your criteria.
+          </p>
 
-          <button class="secondary" id="restartBtn" type="button">Start over</button>
+          <div class="summaryBox" id="summaryBox">
+            <pre id="summaryText"></pre>
+          </div>
+
+          <div class="linkRow">
+            Take a look at new arrivals:
+            <a href="https://www.shiftautogroup.com/vehicles?" target="_blank" rel="noopener noreferrer">shiftautogroup.com/vehicles</a>
+          </div>
+
+          <button class="secondary" id="restartBtn" type="button" style="margin-top:14px">Start over</button>
         </div>
       </section>
 
@@ -490,35 +489,60 @@
   </div>
 
   <script>
-    // --- Data ---
+    // =============================
+    // CONFIG: paste your Apps Script Web App URL here
+    // =============================
+    const GOOGLE_WEB_APP_URL = "https://docs.google.com/spreadsheets/d/1o3CVbMOpx61Vjsb7NUrmM2Ce9D3U4RBBC-EFWeaGaQI/edit?gid=0#gid=0";
+
     const THIS_YEAR = new Date().getFullYear();
 
+    // Expanded makes + common models
     const MAKE_MODEL = {
-      "Audi": ["A3","A4","A6","Q3","Q5","Q7","e-tron"],
-      "BMW": ["3 Series","5 Series","X1","X3","X5","i4"],
-      "Toyota": ["Corolla","Camry","RAV4","Highlander","Tacoma","Prius"],
-      "Honda": ["Civic","Accord","CR-V","HR-V","Pilot","Ridgeline"],
-      "Ford": ["F-150","Escape","Explorer","Bronco","Mustang"],
-      "Hyundai": ["Elantra","Sonata","Tucson","Santa Fe","Ioniq 5"],
+      "Acura": ["ILX","TLX","RLX","Integra","RDX","MDX"],
+      "Audi": ["A3","A4","A5","A6","Q3","Q5","Q7","Q8","e-tron"],
+      "BMW": ["2 Series","3 Series","4 Series","5 Series","X1","X3","X5","X7","i4","iX"],
+      "Buick": ["Encore","Encore GX","Envision","Enclave","LaCrosse"],
+      "Cadillac": ["CT4","CT5","XT4","XT5","XT6","Escalade"],
+      "Chevrolet": ["Spark","Cruze","Malibu","Impala","Trax","Equinox","Blazer","Traverse","Tahoe","Suburban","Silverado 1500","Colorado"],
+      "Chrysler": ["200","300","Pacifica","Voyager"],
+      "Dodge": ["Charger","Challenger","Durango","Journey","Grand Caravan"],
+      "Ford": ["Fiesta","Focus","Fusion","Escape","Edge","Explorer","Bronco","Mustang","F-150","Ranger"],
+      "GMC": ["Terrain","Acadia","Yukon","Yukon XL","Canyon","Sierra 1500"],
+      "Honda": ["Civic","Accord","CR-V","HR-V","Pilot","Ridgeline","Odyssey"],
+      "Hyundai": ["Elantra","Sonata","Kona","Tucson","Santa Fe","Palisade","Ioniq 5"],
+      "Infiniti": ["Q50","Q60","QX50","QX55","QX60","QX80"],
+      "Jeep": ["Compass","Cherokee","Grand Cherokee","Wrangler","Gladiator","Renegade"],
+      "Kia": ["Forte","K5","Soul","Seltos","Sportage","Sorento","Telluride"],
+      "Lexus": ["IS","ES","GS","LS","UX","NX","RX","GX","LX"],
+      "Lincoln": ["Corsair","Nautilus","Aviator","Navigator","MKZ"],
+      "Mazda": ["Mazda3","Mazda6","CX-3","CX-30","CX-5","CX-50","CX-9","CX-90","MX-5 Miata"],
+      "Mercedes-Benz": ["A-Class","C-Class","E-Class","S-Class","CLA","GLA","GLB","GLC","GLE","GLS"],
+      "MINI": ["Cooper","Cooper S","Countryman","Clubman"],
+      "Mitsubishi": ["Mirage","Lancer","Outlander","Outlander Sport","Eclipse Cross","RVR"],
+      "Nissan": ["Sentra","Altima","Maxima","Versa","Rogue","Murano","Pathfinder","Armada","Frontier","Titan"],
+      "RAM": ["1500","2500","3500","ProMaster","ProMaster City"],
+      "Subaru": ["Impreza","Legacy","Crosstrek","Forester","Outback","Ascent","WRX"],
+      "Toyota": ["Corolla","Camry","Prius","Avalon","RAV4","Highlander","4Runner","Sequoia","Tacoma","Tundra","Sienna"],
+      "Volkswagen": ["Jetta","Passat","Golf","GTI","Tiguan","Atlas","Taos"],
+      "Volvo": ["S60","S90","XC40","XC60","XC90","V60","V90"]
     };
 
-    // Inline SVG icon factory (no external CDN deps)
+    // Inline SVG icons
     const icons = {
       users: () => `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 11c1.66 0 3-1.57 3-3.5S17.66 4 16 4s-3 1.57-3 3.5S14.34 11 16 11Z" stroke="currentColor" stroke-width="2"/><path d="M8 11c1.66 0 3-1.57 3-3.5S9.66 4 8 4 5 5.57 5 7.5 6.34 11 8 11Z" stroke="currentColor" stroke-width="2"/><path d="M3 20c0-3 2.5-5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M21 20c0-3-2.5-5-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M8 15c1.2-.7 2.6-1 4-1s2.8.3 4 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`,
       home: () => `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 10.5L12 3l9 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 9.8V21h14V9.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`,
       sparkles: () => `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l1.4 4.2L18 8l-4.6 1.8L12 14l-1.4-4.2L6 8l4.6-1.8L12 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M5 14l.9 2.6L9 18l-3.1 1.4L5 22l-.9-2.6L1 18l3.1-1.4L5 14Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>`,
-      briefcase: () => `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" stroke="currentColor" stroke-width="2"/><path d="M4 7h16a2 2 0 0 1 2 2v9a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V9a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="2"/>
-      <path d="M2 13h20" stroke="currentColor" stroke-width="2"/></svg>`,
+      briefcase: () => `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" stroke="currentColor" stroke-width="2"/><path d="M4 7h16a2 2 0 0 1 2 2v9a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V9a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="2"/><path d="M2 13h20" stroke="currentColor" stroke-width="2"/></svg>`,
       car: () => `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 16V12l2-5h14l2 5v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M5 16a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm14 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z" stroke="currentColor" stroke-width="2"/><path d="M3 16h18" stroke="currentColor" stroke-width="2"/></svg>`,
       mountain: () => `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 20l7-12 4 6 2-3 5 9H3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>`,
-      settings: () => `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z" stroke="currentColor" stroke-width="2"/><path d="M19.4 15a7.9 7.9 0 0 0 .1-6l2-1.2-2-3.4-2.3.8a8 8 0 0 0-5.2-3L11.6 0h-3.2L8 2.0a8 8 0 0 0-5.2 3L.5 4.2l-2 3.4L.5 8.8a7.9 7.9 0 0 0 .1 6L-1.5 16.2l2 3.4 2.3-.8a8 8 0 0 0 5.2 3l.4 2h3.2l.4-2a8 8 0 0 0 5.2-3l2.3.8 2-3.4-2-1.2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" opacity=".0"/></svg>`,
-      radar: () => `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 22a10 10 0 1 0-10-10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 18a6 6 0 1 0-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 14a2 2 0 1 0-2-2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 12l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`,
+      settings: () => `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z" stroke="currentColor" stroke-width="2"/></svg>`,
+      radar: () => `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 22a10 10 0 1 0-10-10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 18a6 6 0 1 0-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 14a2 2 0 1 0-2-2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`,
       flame: () => `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2s4 4 4 9a4 4 0 0 1-8 0c0-3 2-5 2-7 0 0 0 2 2 4 0-3 0-6 0-6Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M7 13a5 5 0 0 0 10 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`,
       sun: () => `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/><path d="M12 2v2M12 20v2M4 12H2M22 12h-2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5 5 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`,
       lanes: () => `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 3v18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 3v18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 3v4m0 4v4m0 4v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`,
       shield: () => `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l8 4v6c0 6-4 10-8 10S4 18 4 12V6l8-4Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>`,
       sofa: () => `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 12V9a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v3" stroke="currentColor" stroke-width="2"/><path d="M3 12h18v6H3v-6Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M5 18v2M19 18v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`,
-      wheel: () => `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="2" stroke="currentColor" stroke-width="2"/><path d="M5.5 12h5.2m2.6 0H18.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M7.2 17.2c1.5-1.7 3.1-2.5 4.8-2.5s3.3.8 4.8 2.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`,
+      wheel: () => `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="2" stroke="currentColor" stroke-width="2"/></svg>`,
     };
 
     const options = {
@@ -568,34 +592,20 @@
       ],
     };
 
-    // --- State ---
     const state = {
       step: 0,
       form: {
-        firstName: "",
-        lastName: "",
-        phone: "",
-        email: "",
-        useCases: [],
-        bodyTypes: [],
-        make: "",
-        model: "",
-        yearMin: 2010,
-        yearMax: THIS_YEAR,
-        mileMin: 0,
-        mileMax: 300000,
-        budgetMin: 5000,
-        budgetMax: 100000,
-        transmissions: [],
-        drivetrains: [],
-        colors: [],
-        interior: [],
-        addons: [],
+        firstName: "", lastName: "", phone: "", email: "",
+        useCases: [], bodyTypes: [], make: "", model: "",
+        yearMin: 2010, yearMax: THIS_YEAR,
+        mileMin: 0, mileMax: 300000,
+        budgetMin: 5000, budgetMax: 100000,
+        transmissions: [], drivetrains: [],
+        colors: [], interior: [], addons: [],
         notes: "",
       }
     };
 
-    // --- DOM ---
     const screens = Array.from(document.querySelectorAll('.screen'));
     const errorBox = document.getElementById('errorBox');
     const stepLabel = document.getElementById('stepLabel');
@@ -603,142 +613,92 @@
     const progressBar = document.getElementById('progressBar');
     const dots = document.getElementById('dots');
 
-    // Stepper dots
     const TOTAL = 10;
-    for (let i=0;i<TOTAL;i++) {
-      const d = document.createElement('div');
-      d.className = 'dot';
-      dots.appendChild(d);
-    }
+    for (let i=0;i<TOTAL;i++){ const d=document.createElement('div'); d.className='dot'; dots.appendChild(d); }
 
-    function setError(msg) {
-      if (!msg) {
-        errorBox.style.display = 'none';
-        errorBox.textContent = '';
-      } else {
-        errorBox.style.display = 'block';
-        errorBox.textContent = msg;
-      }
+    function setError(msg){
+      if(!msg){ errorBox.style.display='none'; errorBox.textContent=''; }
+      else { errorBox.style.display='block'; errorBox.textContent=msg; }
     }
+    function fmt(n){ return Number(n).toLocaleString(undefined); }
 
-    function fmt(n) {
-      return Number(n).toLocaleString(undefined);
-    }
-
-    function renderStepper() {
+    function renderStepper(){
       const pct = Math.round(((state.step + 1) / TOTAL) * 100);
       stepLabel.textContent = `Step ${state.step + 1} of ${TOTAL}`;
       pctLabel.textContent = `${pct}%`;
       progressBar.style.width = `${pct}%`;
-
-      const dotEls = Array.from(dots.children);
-      dotEls.forEach((el, i) => {
+      Array.from(dots.children).forEach((el,i)=>{
         el.classList.toggle('done', i < state.step);
         el.classList.toggle('active', i === state.step);
       });
     }
 
-    function showStep(step) {
+    function showStep(step){
       state.step = Math.max(0, Math.min(TOTAL - 1, step));
       setError("");
-      screens.forEach(s => s.classList.remove('active'));
+      screens.forEach(s=>s.classList.remove('active'));
       const next = screens.find(s => Number(s.dataset.step) === state.step);
-      if (next) next.classList.add('active');
+      if(next) next.classList.add('active');
       renderStepper();
       updateAllNavStates();
     }
 
-    function toggleMulti(key, value) {
+    function toggleMulti(key,value){
       const arr = state.form[key];
       const idx = arr.indexOf(value);
-      if (idx >= 0) arr.splice(idx, 1);
-      else arr.push(value);
+      if(idx >= 0) arr.splice(idx,1); else arr.push(value);
       updateAllNavStates();
     }
 
-    function canProceed(step) {
+    function canProceed(step){
       const f = state.form;
-      switch (step) {
-        case 0:
-          return Boolean(f.firstName.trim()) && Boolean(f.lastName.trim()) && Boolean(f.phone.trim()) && Boolean(f.email.trim());
-        case 1:
-          return f.useCases.length > 0;
-        case 2:
-          return f.bodyTypes.length > 0;
-        case 3:
-          return Boolean(f.make) && Boolean(f.model);
-        case 4:
-          return true;
-        case 5:
-          return f.transmissions.length > 0 && f.drivetrains.length > 0;
-        case 6:
-          return f.colors.length > 0 && f.interior.length > 0;
-        case 7:
-          return f.addons.length > 0;
-        case 8:
-          return true;
-        default:
-          return true;
+      switch(step){
+        case 0: return !!f.firstName.trim() && !!f.lastName.trim() && !!f.phone.trim() && !!f.email.trim();
+        case 1: return f.useCases.length > 0;
+        case 2: return f.bodyTypes.length > 0;
+        case 3: return !!f.make && !!f.model;
+        case 4: return true;
+        case 5: return f.transmissions.length > 0 && f.drivetrains.length > 0;
+        case 6: return f.colors.length > 0 && f.interior.length > 0;
+        case 7: return f.addons.length > 0;
+        case 8: return true;
+        default: return true;
       }
     }
 
-    function nextFrom(step) {
-      if (!canProceed(step)) {
-        setError("Please, choose at least one");
-        return;
-      }
+    function nextFrom(step){
+      if(!canProceed(step)){ setError("Please, choose at least one"); return; }
       showStep(step + 1);
     }
+    function prevFrom(step){ showStep(step - 1); }
 
-    function prevFrom(step) {
-      showStep(step - 1);
-    }
-
-    function setNextButtonState(btn, ok) {
+    function setNextButtonState(btn, ok){
       btn.disabled = !ok;
       btn.classList.toggle('ready', ok);
     }
-
-    function updateAllNavStates() {
-      // Step 0
+    function updateAllNavStates(){
       setNextButtonState(document.getElementById('nextBtn0'), canProceed(0));
-      // Step 1
       setNextButtonState(document.getElementById('nextBtn1'), canProceed(1));
-      // Step 2
       setNextButtonState(document.getElementById('nextBtn2'), canProceed(2));
-      // Step 3
       setNextButtonState(document.getElementById('nextBtn3'), canProceed(3));
-      // Step 4
       setNextButtonState(document.getElementById('nextBtn4'), canProceed(4));
-      // Step 5
       setNextButtonState(document.getElementById('nextBtn5'), canProceed(5));
-      // Step 6
       setNextButtonState(document.getElementById('nextBtn6'), canProceed(6));
-      // Step 7
       setNextButtonState(document.getElementById('nextBtn7'), canProceed(7));
     }
 
-    function buildOptionGrid(containerId, key, list, mode = 'icon') {
+    function buildOptionGrid(containerId, key, list){
       const root = document.getElementById(containerId);
       root.innerHTML = '';
-      list.forEach(opt => {
+      list.forEach(opt=>{
         const el = document.createElement('div');
-        el.className = 'opt';
-        el.tabIndex = 0;
-        el.setAttribute('role', 'button');
-        el.setAttribute('aria-pressed', 'false');
-
-        const selected = state.form[key].includes(opt.value);
-
-        let iconHtml = '';
-        if (mode === 'color') {
-          iconHtml = `<span class="colorDot" style="background:${opt.swatch}"></span>`;
-        } else {
-          iconHtml = opt.icon ? opt.icon() : '';
-        }
+        el.className='opt';
+        el.tabIndex=0;
+        el.setAttribute('role','button');
+        el.setAttribute('aria-pressed','false');
 
         el.innerHTML = `
-          <div class="icon" aria-hidden="true">${mode === 'color' ? iconHtml : iconHtml}</div>
+          <div class="icon" aria-hidden="true">${opt.icon ? opt.icon() : ''}</div>
           <div>
             <div class="label">${opt.label}</div>
             ${opt.sub ? `<div class="sub">${opt.sub}</div>` : ''}
@@ -746,152 +706,127 @@
           <div class="check" aria-hidden="true">✓</div>
         `;
 
-        function sync() {
+        function sync(){
           const on = state.form[key].includes(opt.value);
           el.classList.toggle('on', on);
           el.setAttribute('aria-pressed', String(on));
         }
 
-        el.addEventListener('click', () => {
-          toggleMulti(key, opt.value);
-          sync();
-        });
-        el.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            toggleMulti(key, opt.value);
-            sync();
-          }
+        el.addEventListener('click', ()=>{ toggleMulti(key,opt.value); sync(); });
+        el.addEventListener('keydown', (e)=>{
+          if(e.key==='Enter'||e.key===' '){ e.preventDefault(); toggleMulti(key,opt.value); sync(); }
         });
 
-        // initial
-        if (selected) el.classList.add('on');
         sync();
         root.appendChild(el);
       });
     }
 
-    // --- Screen 1 bindings ---
+    // Screen 1 bindings
     const firstName = document.getElementById('firstName');
-    const lastName = document.getElementById('lastName');
-    const phone = document.getElementById('phone');
-    const email = document.getElementById('email');
+    const lastName  = document.getElementById('lastName');
+    const phone     = document.getElementById('phone');
+    const email     = document.getElementById('email');
     const previewName = document.getElementById('previewName');
     const previewMeta = document.getElementById('previewMeta');
 
-    function syncContact() {
+    function syncContact(){
       state.form.firstName = firstName.value;
-      state.form.lastName = lastName.value;
-      state.form.phone = phone.value;
-      state.form.email = email.value;
+      state.form.lastName  = lastName.value;
+      state.form.phone     = phone.value;
+      state.form.email     = email.value;
       previewName.textContent = `${state.form.firstName || 'First'} ${state.form.lastName || 'Last'}`.trim();
       previewMeta.textContent = `${state.form.phone || 'Phone'} • ${state.form.email || 'Email'}`;
       updateAllNavStates();
     }
+    [firstName,lastName,phone,email].forEach(el=>el.addEventListener('input', syncContact));
+    document.getElementById('nextBtn0').addEventListener('click', ()=>nextFrom(0));
 
-    [firstName,lastName,phone,email].forEach(el => el.addEventListener('input', syncContact));
+    // Screen 2/3
+    buildOptionGrid('useCaseGrid','useCases',options.useCases);
+    buildOptionGrid('bodyTypeGrid','bodyTypes',options.bodyTypes);
+    document.getElementById('prevBtn1').addEventListener('click', ()=>prevFrom(1));
+    document.getElementById('nextBtn1').addEventListener('click', ()=>nextFrom(1));
+    document.getElementById('prevBtn2').addEventListener('click', ()=>prevFrom(2));
+    document.getElementById('nextBtn2').addEventListener('click', ()=>nextFrom(2));
 
-    document.getElementById('nextBtn0').addEventListener('click', () => nextFrom(0));
-
-    // --- Screen 2 / 3 grids ---
-    buildOptionGrid('useCaseGrid', 'useCases', options.useCases);
-    buildOptionGrid('bodyTypeGrid', 'bodyTypes', options.bodyTypes);
-
-    document.getElementById('prevBtn1').addEventListener('click', () => prevFrom(1));
-    document.getElementById('nextBtn1').addEventListener('click', () => nextFrom(1));
-
-    document.getElementById('prevBtn2').addEventListener('click', () => prevFrom(2));
-    document.getElementById('nextBtn2').addEventListener('click', () => nextFrom(2));
-
-    // --- Screen 4 make/model ---
-    const makeSel = document.getElementById('make');
+    // Screen 4 make/model (native select)
+    const makeSel  = document.getElementById('make');
     const modelSel = document.getElementById('model');
 
-    function makeIconText(make) {
-      return make.split(' ').map(s => s[0]).join('').slice(0,3).toUpperCase();
-    }
-
-    function populateMakes() {
-      Object.keys(MAKE_MODEL).forEach(make => {
+    function populateMakes(){
+      makeSel.innerHTML = '<option value="">Choose a make</option>';
+      Object.keys(MAKE_MODEL).sort((a,b)=>a.localeCompare(b)).forEach(make=>{
         const opt = document.createElement('option');
-        opt.value = make;
-        opt.textContent = make;
+        opt.value = make; opt.textContent = make;
         makeSel.appendChild(opt);
       });
     }
-
-    function populateModelsFor(make) {
+    function populateModelsFor(make){
       modelSel.innerHTML = '';
       const first = document.createElement('option');
       first.value = '';
       first.textContent = make ? 'Choose a model' : 'Select make first';
       modelSel.appendChild(first);
 
-      if (!make) {
-        modelSel.disabled = true;
-        return;
-      }
+      if(!make){ modelSel.disabled = true; return; }
       modelSel.disabled = false;
-      (MAKE_MODEL[make] || []).forEach(model => {
+
+      (MAKE_MODEL[make] || []).forEach(model=>{
         const opt = document.createElement('option');
-        opt.value = model;
-        opt.textContent = model;
+        opt.value = model; opt.textContent = model;
         modelSel.appendChild(opt);
       });
     }
-
     populateMakes();
     populateModelsFor('');
 
-    makeSel.addEventListener('change', () => {
+    makeSel.addEventListener('change', ()=>{
       state.form.make = makeSel.value;
       state.form.model = '';
       populateModelsFor(state.form.make);
       modelSel.value = '';
       updateAllNavStates();
     });
-
-    modelSel.addEventListener('change', () => {
+    modelSel.addEventListener('change', ()=>{
       state.form.model = modelSel.value;
       updateAllNavStates();
     });
+    document.getElementById('prevBtn3').addEventListener('click', ()=>prevFrom(3));
+    document.getElementById('nextBtn3').addEventListener('click', ()=>nextFrom(3));
 
-    document.getElementById('prevBtn3').addEventListener('click', () => prevFrom(3));
-    document.getElementById('nextBtn3').addEventListener('click', () => nextFrom(3));
-
-    // --- Screen 5 ranges (two sliders each) ---
+    // Screen 5 dual ranges + fill
     const yearMin = document.getElementById('yearMin');
     const yearMax = document.getElementById('yearMax');
     const yearVal = document.getElementById('yearVal');
+    const yearFill = document.getElementById('yearFill');
 
     const mileMin = document.getElementById('mileMin');
     const mileMax = document.getElementById('mileMax');
     const mileVal = document.getElementById('mileVal');
+    const mileFill = document.getElementById('mileFill');
 
     const budgetMin = document.getElementById('budgetMin');
     const budgetMax = document.getElementById('budgetMax');
     const budgetVal = document.getElementById('budgetVal');
+    const budgetFill = document.getElementById('budgetFill');
 
-    // init ranges
     yearMin.max = String(THIS_YEAR);
     yearMax.max = String(THIS_YEAR);
+    state.form.yearMax = THIS_YEAR;
+
     yearMin.value = String(state.form.yearMin);
     yearMax.value = String(state.form.yearMax);
-
     mileMin.value = String(state.form.mileMin);
     mileMax.value = String(state.form.mileMax);
-
     budgetMin.value = String(state.form.budgetMin);
     budgetMax.value = String(state.form.budgetMax);
 
-    function clampPair(minEl, maxEl, minKey, maxKey) {
+    function clampPair(minEl, maxEl, minKey, maxKey){
       let a = Number(minEl.value);
       let b = Number(maxEl.value);
-      if (a > b) {
-        // keep the handle the user moved (assume min changed if event target is minEl)
-        const tmp = a;
-        a = b;
-        b = tmp;
+      if(a > b){
+        const t = a; a = b; b = t;
         minEl.value = String(a);
         maxEl.value = String(b);
       }
@@ -899,123 +834,175 @@
       state.form[maxKey] = b;
     }
 
-    function syncRanges() {
-      clampPair(yearMin, yearMax, 'yearMin', 'yearMax');
-      clampPair(mileMin, mileMax, 'mileMin', 'mileMax');
-      clampPair(budgetMin, budgetMax, 'budgetMin', 'budgetMax');
+    function setFill(fillEl, minEl, maxEl){
+      const min = Number(minEl.min);
+      const max = Number(minEl.max);
+      const a = Number(minEl.value);
+      const b = Number(maxEl.value);
+      const leftPct  = ((a - min) / (max - min)) * 100;
+      const rightPct = ((b - min) / (max - min)) * 100;
+      fillEl.style.left = `${leftPct}%`;
+      fillEl.style.width = `${Math.max(0, rightPct - leftPct)}%`;
+    }
+
+    function syncRanges(){
+      clampPair(yearMin, yearMax, 'yearMin','yearMax');
+      clampPair(mileMin, mileMax, 'mileMin','mileMax');
+      clampPair(budgetMin, budgetMax, 'budgetMin','budgetMax');
 
       yearVal.textContent = `${state.form.yearMin} – ${state.form.yearMax}`;
       mileVal.textContent = `${fmt(state.form.mileMin)} – ${fmt(state.form.mileMax)} km`;
       budgetVal.textContent = `$${fmt(state.form.budgetMin)} – $${fmt(state.form.budgetMax)}`;
+
+      setFill(yearFill, yearMin, yearMax);
+      setFill(mileFill, mileMin, mileMax);
+      setFill(budgetFill, budgetMin, budgetMax);
     }
 
-    [yearMin,yearMax,mileMin,mileMax,budgetMin,budgetMax].forEach(el => el.addEventListener('input', syncRanges));
+    [yearMin,yearMax,mileMin,mileMax,budgetMin,budgetMax].forEach(el=>el.addEventListener('input', syncRanges));
     syncRanges();
 
-    document.getElementById('prevBtn4').addEventListener('click', () => prevFrom(4));
-    document.getElementById('nextBtn4').addEventListener('click', () => nextFrom(4));
+    document.getElementById('prevBtn4').addEventListener('click', ()=>prevFrom(4));
+    document.getElementById('nextBtn4').addEventListener('click', ()=>nextFrom(4));
 
-    // --- Screen 6 grids ---
-    buildOptionGrid('transGrid', 'transmissions', options.transmissions);
-    buildOptionGrid('driveGrid', 'drivetrains', options.drivetrains);
-    document.getElementById('prevBtn5').addEventListener('click', () => prevFrom(5));
-    document.getElementById('nextBtn5').addEventListener('click', () => nextFrom(5));
+    // Screen 6
+    buildOptionGrid('transGrid','transmissions',options.transmissions);
+    buildOptionGrid('driveGrid','drivetrains',options.drivetrains);
+    document.getElementById('prevBtn5').addEventListener('click', ()=>prevFrom(5));
+    document.getElementById('nextBtn5').addEventListener('click', ()=>nextFrom(5));
 
-    // --- Screen 7 grids ---
-    // colors: special rendering with swatch, but we keep the same tile style
-    (function buildColors() {
+    // Screen 7 colors + interior
+    (function buildColors(){
       const root = document.getElementById('colorGrid');
       root.innerHTML = '';
-      options.colors.forEach(opt => {
+      options.colors.forEach(opt=>{
         const el = document.createElement('div');
-        el.className = 'opt';
-        el.tabIndex = 0;
+        el.className='opt';
+        el.tabIndex=0;
         el.setAttribute('role','button');
         el.innerHTML = `
           <div class="icon" aria-hidden="true"><span class="colorDot" style="background:${opt.swatch}"></span></div>
-          <div>
-            <div class="label">${opt.label}</div>
-          </div>
+          <div><div class="label">${opt.label}</div></div>
           <div class="check" aria-hidden="true">✓</div>
         `;
-
-        function sync() {
+        function sync(){
           const on = state.form.colors.includes(opt.value);
           el.classList.toggle('on', on);
           el.setAttribute('aria-pressed', String(on));
         }
-
-        el.addEventListener('click', () => { toggleMulti('colors', opt.value); sync(); });
-        el.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleMulti('colors', opt.value); sync(); }
-        });
+        el.addEventListener('click', ()=>{ toggleMulti('colors', opt.value); sync(); });
+        el.addEventListener('keydown', (e)=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); toggleMulti('colors', opt.value); sync(); }});
         sync();
         root.appendChild(el);
       });
     })();
 
-    buildOptionGrid('interiorGrid', 'interior', options.interior);
+    buildOptionGrid('interiorGrid','interior',options.interior);
+    document.getElementById('prevBtn6').addEventListener('click', ()=>prevFrom(6));
+    document.getElementById('nextBtn6').addEventListener('click', ()=>nextFrom(6));
 
-    document.getElementById('prevBtn6').addEventListener('click', () => prevFrom(6));
-    document.getElementById('nextBtn6').addEventListener('click', () => nextFrom(6));
+    // Screen 8
+    buildOptionGrid('addonGrid','addons',options.addons);
+    document.getElementById('prevBtn7').addEventListener('click', ()=>prevFrom(7));
+    document.getElementById('nextBtn7').addEventListener('click', ()=>nextFrom(7));
 
-    // --- Screen 8 grids ---
-    buildOptionGrid('addonGrid', 'addons', options.addons);
-    document.getElementById('prevBtn7').addEventListener('click', () => prevFrom(7));
-    document.getElementById('nextBtn7').addEventListener('click', () => nextFrom(7));
-
-    // --- Screen 9 notes + submit ---
+    // Screen 9 notes
     const notes = document.getElementById('notes');
-    notes.addEventListener('input', () => { state.form.notes = notes.value; });
-    document.getElementById('prevBtn8').addEventListener('click', () => prevFrom(8));
+    notes.addEventListener('input', ()=>{ state.form.notes = notes.value; });
+    document.getElementById('prevBtn8').addEventListener('click', ()=>prevFrom(8));
 
-    document.getElementById('submitBtn').addEventListener('click', () => {
-      // NOTE: Replace this with your actual submission behavior.
-      // For now, we log the payload and show the thanks screen.
-      console.log('SUBMIT PAYLOAD', JSON.parse(JSON.stringify(state.form)));
+    // Summary on screen 10
+    const summaryText = document.getElementById('summaryText');
+
+    function list(arr){ return (arr && arr.length) ? arr.join(", ") : "—"; }
+
+    function buildSummary(){
+      const f = state.form;
+      return [
+        `Contact`,
+        `- Name: ${f.firstName} ${f.lastName}`.trim(),
+        `- Phone: ${f.phone}`,
+        `- Email: ${f.email}`,
+        ``,
+        `Preferences`,
+        `- Use case: ${list(f.useCases)}`,
+        `- Body style: ${list(f.bodyTypes)}`,
+        `- Make/Model: ${f.make || "—"}${f.model ? " • " + f.model : ""}`,
+        `- Year: ${f.yearMin} – ${f.yearMax}`,
+        `- Mileage: ${fmt(f.mileMin)} – ${fmt(f.mileMax)} km`,
+        `- Budget: $${fmt(f.budgetMin)} – $${fmt(f.budgetMax)}`,
+        `- Transmission: ${list(f.transmissions)}`,
+        `- Drivetrain: ${list(f.drivetrains)}`,
+        `- Exterior color: ${list(f.colors)}`,
+        `- Interior: ${list(f.interior)}`,
+        `- Additional options: ${list(f.addons)}`,
+        ``,
+        `Notes`,
+        `${f.notes || "—"}`
+      ].join("\n");
+    }
+
+    async function sendToGoogle(payload){
+      if(!GOOGLE_WEB_APP_URL || GOOGLE_WEB_APP_URL.includes("PASTE_")) return;
+
+      // "no-cors" makes browser not block you (you won’t see response, but it will deliver)
+      await fetch(GOOGLE_WEB_APP_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=UTF-8" },
+        body: JSON.stringify(payload),
+      });
+    }
+
+    document.getElementById('submitBtn').addEventListener('click', async ()=>{
+      // show success + summary
+      summaryText.textContent = buildSummary();
       showStep(9);
+
+      // send to Sheets + Telegram via Apps Script
+      try{
+        await sendToGoogle(JSON.parse(JSON.stringify(state.form)));
+      } catch(e){
+        console.error("Failed to send lead", e);
+      }
     });
 
-    // --- Screen 10 restart ---
-    document.getElementById('restartBtn').addEventListener('click', () => {
-      // reset state
+    // Restart
+    document.getElementById('restartBtn').addEventListener('click', ()=>{
       state.form = {
-        firstName: "", lastName: "", phone: "", email: "",
-        useCases: [], bodyTypes: [], make: "", model: "",
-        yearMin: 2010, yearMax: THIS_YEAR,
-        mileMin: 0, mileMax: 300000,
-        budgetMin: 5000, budgetMax: 100000,
-        transmissions: [], drivetrains: [], colors: [], interior: [], addons: [], notes: "",
+        firstName:"", lastName:"", phone:"", email:"",
+        useCases:[], bodyTypes:[], make:"", model:"",
+        yearMin:2010, yearMax:THIS_YEAR,
+        mileMin:0, mileMax:300000,
+        budgetMin:5000, budgetMax:100000,
+        transmissions:[], drivetrains:[],
+        colors:[], interior:[], addons:[],
+        notes:""
       };
 
-      // reset inputs
-      firstName.value = ""; lastName.value = ""; phone.value = ""; email.value = "";
-      makeSel.value = ""; populateModelsFor('');
-      notes.value = "";
+      firstName.value=""; lastName.value=""; phone.value=""; email.value="";
+      notes.value="";
 
-      yearMin.value = String(state.form.yearMin);
-      yearMax.value = String(state.form.yearMax);
-      mileMin.value = String(state.form.mileMin);
-      mileMax.value = String(state.form.mileMax);
-      budgetMin.value = String(state.form.budgetMin);
-      budgetMax.value = String(state.form.budgetMax);
+      makeSel.value="";
+      populateModelsFor("");
+      modelSel.value="";
       syncRanges();
 
-      // rebuild grids to clear selection states
-      buildOptionGrid('useCaseGrid', 'useCases', options.useCases);
-      buildOptionGrid('bodyTypeGrid', 'bodyTypes', options.bodyTypes);
-      buildOptionGrid('transGrid', 'transmissions', options.transmissions);
-      buildOptionGrid('driveGrid', 'drivetrains', options.drivetrains);
-      buildOptionGrid('interiorGrid', 'interior', options.interior);
-      buildOptionGrid('addonGrid', 'addons', options.addons);
-      // colors rebuilt
+      buildOptionGrid('useCaseGrid','useCases',options.useCases);
+      buildOptionGrid('bodyTypeGrid','bodyTypes',options.bodyTypes);
+      buildOptionGrid('transGrid','transmissions',options.transmissions);
+      buildOptionGrid('driveGrid','drivetrains',options.drivetrains);
+      buildOptionGrid('interiorGrid','interior',options.interior);
+      buildOptionGrid('addonGrid','addons',options.addons);
+
+      // rebuild colors
       (function rebuildColors(){
         const root = document.getElementById('colorGrid');
-        root.querySelectorAll('.opt').forEach(n => n.remove());
-        options.colors.forEach(opt => {
+        root.innerHTML = '';
+        options.colors.forEach(opt=>{
           const el = document.createElement('div');
-          el.className = 'opt';
-          el.tabIndex = 0;
+          el.className='opt';
+          el.tabIndex=0;
           el.setAttribute('role','button');
           el.innerHTML = `
             <div class="icon" aria-hidden="true"><span class="colorDot" style="background:${opt.swatch}"></span></div>
@@ -1027,8 +1014,8 @@
             el.classList.toggle('on', on);
             el.setAttribute('aria-pressed', String(on));
           }
-          el.addEventListener('click', () => { toggleMulti('colors', opt.value); sync(); });
-          el.addEventListener('keydown', (e) => { if (e.key==='Enter'||e.key===' ') { e.preventDefault(); toggleMulti('colors', opt.value); sync(); } });
+          el.addEventListener('click', ()=>{ toggleMulti('colors', opt.value); sync(); });
+          el.addEventListener('keydown', (e)=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); toggleMulti('colors', opt.value); sync(); }});
           sync();
           root.appendChild(el);
         });
@@ -1038,31 +1025,28 @@
       showStep(0);
     });
 
-    // --- Wire remaining nav buttons ---
-    // Step 5-8 already wired above; just ensure stepper state correct on load
-    // Also wire prev buttons for steps 5-8 already done.
+    // Wire remaining nav buttons
+    document.getElementById('prevBtn1').addEventListener('click', ()=>prevFrom(1));
+    document.getElementById('nextBtn1').addEventListener('click', ()=>nextFrom(1));
+    document.getElementById('prevBtn2').addEventListener('click', ()=>prevFrom(2));
+    document.getElementById('nextBtn2').addEventListener('click', ()=>nextFrom(2));
+    document.getElementById('prevBtn3').addEventListener('click', ()=>prevFrom(3));
+    document.getElementById('nextBtn3').addEventListener('click', ()=>nextFrom(3));
+    document.getElementById('prevBtn4').addEventListener('click', ()=>prevFrom(4));
+    document.getElementById('nextBtn4').addEventListener('click', ()=>nextFrom(4));
+    document.getElementById('prevBtn5').addEventListener('click', ()=>prevFrom(5));
+    document.getElementById('nextBtn5').addEventListener('click', ()=>nextFrom(5));
+    document.getElementById('prevBtn6').addEventListener('click', ()=>prevFrom(6));
+    document.getElementById('nextBtn6').addEventListener('click', ()=>nextFrom(6));
+    document.getElementById('prevBtn7').addEventListener('click', ()=>prevFrom(7));
+    document.getElementById('nextBtn7').addEventListener('click', ()=>nextFrom(7));
+    document.getElementById('prevBtn8').addEventListener('click', ()=>prevFrom(8));
 
-    // Initial preview + nav state
+    // init
     syncContact();
     updateAllNavStates();
     renderStepper();
-
-    // --- Dev tests (console asserts) ---
-    (function runTests(){
-      const clone = (o) => JSON.parse(JSON.stringify(o));
-      const f = clone(state.form);
-      console.assert(canProceed(0) === false, 'Step 1 should block when contact fields empty');
-      f.firstName='A'; f.lastName='B'; f.phone='1'; f.email='a@b.com';
-      state.form = f;
-      console.assert(canProceed(0) === true, 'Step 1 should allow when contact fields filled');
-      state.form = clone(state.form);
-      state.form.useCases=[];
-      console.assert(canProceed(1) === false, 'Step 2 should block when no use case selected');
-      state.form.useCases=['family'];
-      console.assert(canProceed(1) === true, 'Step 2 should allow when at least one use case selected');
-      // restore to empty again so UI starts clean
-      document.getElementById('restartBtn').click();
-    })();
   </script>
 </body>
 </html>
+xf
