@@ -1,0 +1,1068 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vehicle Finder – Multi-Step Wizard</title>
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --card:#0f1620;
+      --muted:#93a4b5;
+      --text:#e7eef6;
+      --border:#1e2a38;
+      --emerald:#16a34a;
+      --emerald2:#22c55e;
+      --danger:#ef4444;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 22px;
+      --radius2: 16px;
+      --focus: 0 0 0 3px rgba(34,197,94,.25);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100vh;
+      display:grid;
+      place-items:center;
+      padding:24px;
+      background: radial-gradient(1200px 500px at 50% -10%, rgba(34,197,94,.20), transparent 60%),
+                  radial-gradient(900px 500px at 15% 20%, rgba(59,130,246,.10), transparent 65%),
+                  radial-gradient(900px 500px at 80% 70%, rgba(168,85,247,.10), transparent 70%),
+                  var(--bg);
+      color:var(--text);
+    }
+
+    .card{
+      width:min(920px, 100%);
+      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+      border:1px solid var(--border);
+      border-radius: calc(var(--radius) + 8px);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+
+    .header{
+      padding:22px 22px 14px;
+      border-bottom:1px solid rgba(255,255,255,.05);
+    }
+
+    .titleRow{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:14px;
+    }
+
+    h1{font-size:18px;margin:0}
+    .sub{font-size:12px;color:var(--muted)}
+
+    .stepMeta{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      font-size:12px;
+      color:var(--muted);
+      margin-bottom:10px;
+    }
+
+    .bar{height:8px;background:rgba(255,255,255,.06);border-radius:999px;overflow:hidden}
+    .bar > div{height:100%;background:linear-gradient(90deg,var(--emerald),var(--emerald2));width:0%;transition:width .25s ease}
+
+    .dots{display:grid;grid-template-columns:repeat(10,1fr);gap:6px;margin-top:10px}
+    .dot{height:6px;border-radius:999px;background:rgba(255,255,255,.06)}
+    .dot.done{background:rgba(34,197,94,.9)}
+    .dot.active{background:rgba(34,197,94,.45)}
+
+    .content{padding:22px}
+
+    .error{
+      display:none;
+      background:rgba(239,68,68,.12);
+      border:1px solid rgba(239,68,68,.35);
+      color:#fecaca;
+      padding:12px 14px;
+      border-radius:18px;
+      margin-bottom:14px;
+      font-size:14px;
+    }
+
+    .screen{display:none;animation:fade .18s ease}
+    .screen.active{display:block}
+
+    @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+    h2{margin:0 0 6px;font-size:18px}
+    p.helper{margin:0 0 18px;color:var(--muted);font-size:13px;line-height:1.35}
+
+    .grid2{display:grid;grid-template-columns:1fr;gap:12px}
+    @media (min-width:720px){.grid2{grid-template-columns:1fr 1fr}}
+
+    label{font-size:12px;color:var(--muted);display:block;margin:0 0 6px}
+
+    input[type="text"], input[type="email"], input[type="tel"], textarea, select{
+      width:100%;
+      border-radius:18px;
+      padding:12px 12px;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.03);
+      color:var(--text);
+      outline:none;
+    }
+    input:focus, textarea:focus, select:focus{box-shadow:var(--focus);border-color:rgba(34,197,94,.6)}
+
+    textarea{min-height:120px;resize:vertical}
+
+    .preview{
+      margin-top:12px;
+      border:1px solid rgba(255,255,255,.07);
+      background:rgba(255,255,255,.03);
+      border-radius:18px;
+      padding:12px;
+    }
+
+    .preview .name{font-weight:700}
+    .preview .meta{color:var(--muted);font-size:13px;margin-top:6px}
+
+    .optGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+    @media (min-width:720px){.optGrid.cols4{grid-template-columns:repeat(4,1fr)} .optGrid.cols3{grid-template-columns:repeat(3,1fr)}}
+
+    .opt{
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.02);
+      border-radius:var(--radius);
+      padding:12px;
+      cursor:pointer;
+      display:flex;
+      gap:10px;
+      align-items:center;
+      transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease, background .12s ease;
+      user-select:none;
+    }
+
+    .opt:hover{transform:translateY(-1px);box-shadow:0 8px 18px rgba(0,0,0,.25)}
+
+    .opt .icon{
+      height:40px;width:40px;
+      border-radius:14px;
+      display:grid;place-items:center;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.06);
+    }
+
+    .opt .label{font-weight:700;font-size:14px;line-height:1.1}
+    .opt .sub{font-size:12px;color:var(--muted);margin-top:2px}
+
+    .opt.on{border-color:rgba(34,197,94,.8);background:rgba(34,197,94,.08)}
+    .opt.on .icon{background:rgba(34,197,94,.9);border-color:rgba(34,197,94,.7)}
+    .opt.on .icon svg{color:white}
+
+    .opt .check{margin-left:auto;opacity:0;transition:opacity .12s ease}
+    .opt.on .check{opacity:1}
+
+    .pillRow{display:flex;gap:10px;flex-wrap:wrap}
+
+    .colorDot{height:18px;width:18px;border-radius:999px;border:1px solid rgba(255,255,255,.18)}
+
+    .rangeBox{border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.02);border-radius:var(--radius);padding:14px}
+    .rangeTop{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+    .rangeTop .lbl{display:flex;align-items:center;gap:8px;font-weight:700;font-size:13px}
+    .rangeTop .val{color:var(--muted);font-size:13px}
+
+    .rangeRow{display:grid;grid-template-columns:1fr;gap:10px}
+    @media (min-width:720px){.rangeRow{grid-template-columns:1fr 1fr}}
+
+    input[type="range"]{width:100%}
+
+    .nav{
+      margin-top:18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+
+    button{
+      border:0;
+      border-radius:18px;
+      padding:12px 14px;
+      font-weight:700;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      color:var(--text);
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.10);
+    }
+
+    button.secondary{background:transparent}
+
+    button.primary{
+      background:rgba(255,255,255,.08);
+    }
+
+    button.primary.ready{
+      background:linear-gradient(90deg,var(--emerald),var(--emerald2));
+      border-color:rgba(34,197,94,.55);
+    }
+
+    button:disabled{opacity:.45;cursor:not-allowed}
+
+    .thanks{
+      text-align:center;
+      padding:18px 0 8px;
+    }
+
+    .badge{
+      width:56px;height:56px;margin:0 auto 12px;
+      border-radius:22px;
+      background:linear-gradient(135deg,var(--emerald),var(--emerald2));
+      display:grid;place-items:center;
+      box-shadow:0 12px 28px rgba(34,197,94,.25);
+    }
+
+    .fine{margin-top:16px;font-size:12px;color:var(--muted)}
+
+    .makeRow{display:flex;align-items:center;gap:10px}
+    .makeIcon{height:22px;width:22px;border-radius:8px;background:rgba(255,255,255,.06);display:grid;place-items:center;font-size:10px;font-weight:900;border:1px solid rgba(255,255,255,.08)}
+
+    .srOnly{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border-width:0}
+
+    /* Simple inline SVG styling */
+    svg{width:18px;height:18px;color:currentColor}
+  </style>
+</head>
+<body>
+  <div class="card" role="application" aria-label="Vehicle Finder multi-step form">
+    <div class="header">
+      <div class="titleRow">
+        <h1>Vehicle Finder</h1>
+        <div class="sub">Multi-step wizard</div>
+      </div>
+
+      <div class="stepMeta">
+        <div id="stepLabel">Step 1 of 10</div>
+        <div id="pctLabel">10%</div>
+      </div>
+
+      <div class="bar" aria-hidden="true"><div id="progressBar"></div></div>
+      <div class="dots" id="dots" aria-hidden="true"></div>
+    </div>
+
+    <div class="content">
+      <div class="error" id="errorBox" role="alert">Please, choose at least one</div>
+
+      <!-- SCREEN 1 -->
+      <section class="screen active" data-step="0" aria-labelledby="s1Title">
+        <h2 id="s1Title">Tell me about yourself</h2>
+        <p class="helper">Fill out your contact details. The next arrow becomes available once all fields are filled.</p>
+
+        <div class="grid2">
+          <div>
+            <label for="firstName">First name</label>
+            <input id="firstName" type="text" autocomplete="given-name" placeholder="John" />
+          </div>
+          <div>
+            <label for="lastName">Last name</label>
+            <input id="lastName" type="text" autocomplete="family-name" placeholder="Doe" />
+          </div>
+        </div>
+
+        <div class="grid2" style="margin-top:12px">
+          <div>
+            <label for="phone">Phone</label>
+            <input id="phone" type="tel" autocomplete="tel" placeholder="(555) 555-5555" />
+          </div>
+          <div>
+            <label for="email">Email</label>
+            <input id="email" type="email" autocomplete="email" placeholder="john@email.com" />
+          </div>
+        </div>
+
+        <div class="preview" aria-live="polite">
+          <div class="name" id="previewName">First Last</div>
+          <div class="meta" id="previewMeta">Phone • Email</div>
+        </div>
+
+        <div class="nav" style="justify-content:flex-end">
+          <button class="primary" id="nextBtn0" type="button" aria-label="Next">Next
+            <span aria-hidden="true">→</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- SCREEN 2 -->
+      <section class="screen" data-step="1" aria-labelledby="s2Title">
+        <h2 id="s2Title">What do you need the vehicle for?</h2>
+        <p class="helper">Select at least one. Multiple selections allowed.</p>
+
+        <div class="optGrid cols4" id="useCaseGrid"></div>
+
+        <div class="nav">
+          <button class="secondary" id="prevBtn1" type="button">← Previous</button>
+          <button class="primary" id="nextBtn1" type="button">Next →</button>
+        </div>
+      </section>
+
+      <!-- SCREEN 3 -->
+      <section class="screen" data-step="2" aria-labelledby="s3Title">
+        <h2 id="s3Title">I&apos;m looking for…</h2>
+        <p class="helper">Select at least one body style. Multiple selections allowed.</p>
+
+        <div class="optGrid cols4" id="bodyTypeGrid"></div>
+
+        <div class="nav">
+          <button class="secondary" id="prevBtn2" type="button">← Previous</button>
+          <button class="primary" id="nextBtn2" type="button">Next →</button>
+        </div>
+      </section>
+
+      <!-- SCREEN 4 -->
+      <section class="screen" data-step="3" aria-labelledby="s4Title">
+        <h2 id="s4Title">Make &amp; Model</h2>
+        <p class="helper">Models update based on make, so you can’t choose an invalid combo.</p>
+
+        <div class="grid2">
+          <div>
+            <label for="make">Make</label>
+            <select id="make">
+              <option value="">Choose a make</option>
+            </select>
+          </div>
+          <div>
+            <label for="model">Model</label>
+            <select id="model" disabled>
+              <option value="">Select make first</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="nav">
+          <button class="secondary" id="prevBtn3" type="button">← Previous</button>
+          <button class="primary" id="nextBtn3" type="button">Next →</button>
+        </div>
+      </section>
+
+      <!-- SCREEN 5 -->
+      <section class="screen" data-step="4" aria-labelledby="s5Title">
+        <h2 id="s5Title">Vehicle age, mileage &amp; budget</h2>
+        <p class="helper">Adjust ranges. This screen always allows next (ranges have defaults).</p>
+
+        <div class="rangeBox">
+          <div class="rangeTop">
+            <div class="lbl">📅 Vehicle age</div>
+            <div class="val" id="yearVal">2010 – 2026</div>
+          </div>
+          <div class="rangeRow">
+            <div>
+              <label class="srOnly" for="yearMin">Year min</label>
+              <input id="yearMin" type="range" min="2010" max="2026" step="1" />
+            </div>
+            <div>
+              <label class="srOnly" for="yearMax">Year max</label>
+              <input id="yearMax" type="range" min="2010" max="2026" step="1" />
+            </div>
+          </div>
+          <div class="fine">Tip: left slider = min year, right slider = max year.</div>
+        </div>
+
+        <div class="rangeBox" style="margin-top:12px">
+          <div class="rangeTop">
+            <div class="lbl">⛽ Mileage</div>
+            <div class="val" id="mileVal">0 – 300,000 km</div>
+          </div>
+          <div class="rangeRow">
+            <div>
+              <label class="srOnly" for="mileMin">Mileage min</label>
+              <input id="mileMin" type="range" min="0" max="300000" step="5000" />
+            </div>
+            <div>
+              <label class="srOnly" for="mileMax">Mileage max</label>
+              <input id="mileMax" type="range" min="0" max="300000" step="5000" />
+            </div>
+          </div>
+        </div>
+
+        <div class="rangeBox" style="margin-top:12px">
+          <div class="rangeTop">
+            <div class="lbl">💵 Budget</div>
+            <div class="val" id="budgetVal">$5,000 – $100,000</div>
+          </div>
+          <div class="rangeRow">
+            <div>
+              <label class="srOnly" for="budgetMin">Budget min</label>
+              <input id="budgetMin" type="range" min="5000" max="100000" step="500" />
+            </div>
+            <div>
+              <label class="srOnly" for="budgetMax">Budget max</label>
+              <input id="budgetMax" type="range" min="5000" max="100000" step="500" />
+            </div>
+          </div>
+        </div>
+
+        <div class="nav">
+          <button class="secondary" id="prevBtn4" type="button">← Previous</button>
+          <button class="primary" id="nextBtn4" type="button">Next →</button>
+        </div>
+      </section>
+
+      <!-- SCREEN 6 -->
+      <section class="screen" data-step="5" aria-labelledby="s6Title">
+        <h2 id="s6Title">Transmission &amp; drivetrain</h2>
+        <p class="helper">Select at least one transmission AND at least one drivetrain.</p>
+
+        <div style="margin-bottom:12px;font-weight:700;font-size:13px;color:var(--muted)">Transmission</div>
+        <div class="optGrid cols4" id="transGrid"></div>
+
+        <div style="margin:16px 0 12px;font-weight:700;font-size:13px;color:var(--muted)">Drivetrain</div>
+        <div class="optGrid cols4" id="driveGrid"></div>
+
+        <div class="nav">
+          <button class="secondary" id="prevBtn5" type="button">← Previous</button>
+          <button class="primary" id="nextBtn5" type="button">Next →</button>
+        </div>
+      </section>
+
+      <!-- SCREEN 7 -->
+      <section class="screen" data-step="6" aria-labelledby="s7Title">
+        <h2 id="s7Title">Exterior color &amp; interior</h2>
+        <p class="helper">Select at least one exterior color and at least one interior material.</p>
+
+        <div style="margin-bottom:12px;font-weight:700;font-size:13px;color:var(--muted)">Exterior color</div>
+        <div class="optGrid cols4" id="colorGrid"></div>
+
+        <div style="margin:16px 0 12px;font-weight:700;font-size:13px;color:var(--muted)">Interior</div>
+        <div class="optGrid" style="grid-template-columns:repeat(2,1fr)" id="interiorGrid"></div>
+
+        <div class="nav">
+          <button class="secondary" id="prevBtn6" type="button">← Previous</button>
+          <button class="primary" id="nextBtn6" type="button">Next →</button>
+        </div>
+      </section>
+
+      <!-- SCREEN 8 -->
+      <section class="screen" data-step="7" aria-labelledby="s8Title">
+        <h2 id="s8Title">Additional options</h2>
+        <p class="helper">Select at least one additional option.</p>
+
+        <div class="optGrid cols3" id="addonGrid"></div>
+
+        <div class="nav">
+          <button class="secondary" id="prevBtn7" type="button">← Previous</button>
+          <button class="primary" id="nextBtn7" type="button">Next →</button>
+        </div>
+      </section>
+
+      <!-- SCREEN 9 -->
+      <section class="screen" data-step="8" aria-labelledby="s9Title">
+        <h2 id="s9Title">What else should the vehicle have?</h2>
+        <p class="helper">Optional: add any extra preferences.</p>
+
+        <div>
+          <label for="notes">Notes</label>
+          <textarea id="notes" placeholder="Example: must have Apple CarPlay, prefer no accidents…"></textarea>
+        </div>
+
+        <div class="nav">
+          <button class="secondary" id="prevBtn8" type="button">← Previous</button>
+          <button class="primary ready" id="submitBtn" type="button">Submit</button>
+        </div>
+      </section>
+
+      <!-- SCREEN 10 -->
+      <section class="screen" data-step="9" aria-labelledby="s10Title">
+        <div class="thanks">
+          <div class="badge" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 6L9 17l-5-5" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h2 id="s10Title">Thanks for your time</h2>
+          <p class="helper" style="margin-top:8px">We will contact you as soon as we find something that will meet our criteria.</p>
+
+          <button class="secondary" id="restartBtn" type="button">Start over</button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script>
+    // --- Data ---
+    const THIS_YEAR = new Date().getFullYear();
+
+    const MAKE_MODEL = {
+      "Audi": ["A3","A4","A6","Q3","Q5","Q7","e-tron"],
+      "BMW": ["3 Series","5 Series","X1","X3","X5","i4"],
+      "Toyota": ["Corolla","Camry","RAV4","Highlander","Tacoma","Prius"],
+      "Honda": ["Civic","Accord","CR-V","HR-V","Pilot","Ridgeline"],
+      "Ford": ["F-150","Escape","Explorer","Bronco","Mustang"],
+      "Hyundai": ["Elantra","Sonata","Tucson","Santa Fe","Ioniq 5"],
+    };
+
+    // Inline SVG icon factory (no external CDN deps)
+    const icons = {
+      users: () => `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 11c1.66 0 3-1.57 3-3.5S17.66 4 16 4s-3 1.57-3 3.5S14.34 11 16 11Z" stroke="currentColor" stroke-width="2"/><path d="M8 11c1.66 0 3-1.57 3-3.5S9.66 4 8 4 5 5.57 5 7.5 6.34 11 8 11Z" stroke="currentColor" stroke-width="2"/><path d="M3 20c0-3 2.5-5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M21 20c0-3-2.5-5-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M8 15c1.2-.7 2.6-1 4-1s2.8.3 4 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`,
+      home: () => `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 10.5L12 3l9 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 9.8V21h14V9.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`,
+      sparkles: () => `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l1.4 4.2L18 8l-4.6 1.8L12 14l-1.4-4.2L6 8l4.6-1.8L12 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M5 14l.9 2.6L9 18l-3.1 1.4L5 22l-.9-2.6L1 18l3.1-1.4L5 14Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>`,
+      briefcase: () => `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" stroke="currentColor" stroke-width="2"/><path d="M4 7h16a2 2 0 0 1 2 2v9a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V9a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="2"/>
+      <path d="M2 13h20" stroke="currentColor" stroke-width="2"/></svg>`,
+      car: () => `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 16V12l2-5h14l2 5v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M5 16a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm14 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z" stroke="currentColor" stroke-width="2"/><path d="M3 16h18" stroke="currentColor" stroke-width="2"/></svg>`,
+      mountain: () => `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 20l7-12 4 6 2-3 5 9H3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>`,
+      settings: () => `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z" stroke="currentColor" stroke-width="2"/><path d="M19.4 15a7.9 7.9 0 0 0 .1-6l2-1.2-2-3.4-2.3.8a8 8 0 0 0-5.2-3L11.6 0h-3.2L8 2.0a8 8 0 0 0-5.2 3L.5 4.2l-2 3.4L.5 8.8a7.9 7.9 0 0 0 .1 6L-1.5 16.2l2 3.4 2.3-.8a8 8 0 0 0 5.2 3l.4 2h3.2l.4-2a8 8 0 0 0 5.2-3l2.3.8 2-3.4-2-1.2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" opacity=".0"/></svg>`,
+      radar: () => `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 22a10 10 0 1 0-10-10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 18a6 6 0 1 0-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 14a2 2 0 1 0-2-2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 12l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`,
+      flame: () => `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2s4 4 4 9a4 4 0 0 1-8 0c0-3 2-5 2-7 0 0 0 2 2 4 0-3 0-6 0-6Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M7 13a5 5 0 0 0 10 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`,
+      sun: () => `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/><path d="M12 2v2M12 20v2M4 12H2M22 12h-2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5 5 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`,
+      lanes: () => `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 3v18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 3v18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 3v4m0 4v4m0 4v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`,
+      shield: () => `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l8 4v6c0 6-4 10-8 10S4 18 4 12V6l8-4Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>`,
+      sofa: () => `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 12V9a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v3" stroke="currentColor" stroke-width="2"/><path d="M3 12h18v6H3v-6Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M5 18v2M19 18v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`,
+      wheel: () => `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="2" stroke="currentColor" stroke-width="2"/><path d="M5.5 12h5.2m2.6 0H18.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M7.2 17.2c1.5-1.7 3.1-2.5 4.8-2.5s3.3.8 4.8 2.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`,
+    };
+
+    const options = {
+      useCases: [
+        { value: "family", label: "Family", icon: icons.users },
+        { value: "commute", label: "Commute", icon: icons.home },
+        { value: "fun", label: "Fun", icon: icons.sparkles },
+        { value: "work", label: "Work", icon: icons.briefcase },
+      ],
+      bodyTypes: [
+        { value: "suv", label: "SUV", icon: icons.mountain },
+        { value: "sedan", label: "Sedan", icon: icons.car },
+        { value: "hatchback", label: "Hatchback", icon: icons.car },
+        { value: "truck", label: "Truck", icon: icons.briefcase },
+      ],
+      transmissions: [
+        { value: "auto", label: "Auto", icon: icons.settings },
+        { value: "manual", label: "Manual", icon: icons.settings },
+        { value: "cvt", label: "CVT", icon: icons.settings },
+        { value: "other", label: "Other", icon: icons.settings },
+      ],
+      drivetrains: [
+        { value: "4x4", label: "4x4", icon: icons.settings },
+        { value: "awd", label: "AWD", icon: icons.settings },
+        { value: "fwd", label: "FWD", icon: icons.settings },
+        { value: "rwd", label: "RWD", icon: icons.settings },
+      ],
+      colors: [
+        { value: "white", label: "White", swatch: "#ffffff" },
+        { value: "black", label: "Black", swatch: "#0b0b0b" },
+        { value: "blue", label: "Blue", swatch: "#2563eb" },
+        { value: "green", label: "Green", swatch: "#16a34a" },
+        { value: "red", label: "Red", swatch: "#dc2626" },
+        { value: "grey", label: "Grey", swatch: "#a1a1aa" },
+      ],
+      interior: [
+        { value: "leather", label: "Leather", icon: icons.sofa },
+        { value: "cloth", label: "Cloth", icon: icons.sofa },
+      ],
+      addons: [
+        { value: "blind_spot", label: "Blind spot", icon: icons.radar },
+        { value: "heated_seats", label: "Heated seats", icon: icons.flame },
+        { value: "remote_start", label: "Remote start", icon: icons.shield },
+        { value: "lane_assist", label: "Lane assist", icon: icons.lanes },
+        { value: "sunroof", label: "Sunroof", icon: icons.sun },
+        { value: "wheel_heater", label: "Steering wheel heater", icon: icons.wheel },
+      ],
+    };
+
+    // --- State ---
+    const state = {
+      step: 0,
+      form: {
+        firstName: "",
+        lastName: "",
+        phone: "",
+        email: "",
+        useCases: [],
+        bodyTypes: [],
+        make: "",
+        model: "",
+        yearMin: 2010,
+        yearMax: THIS_YEAR,
+        mileMin: 0,
+        mileMax: 300000,
+        budgetMin: 5000,
+        budgetMax: 100000,
+        transmissions: [],
+        drivetrains: [],
+        colors: [],
+        interior: [],
+        addons: [],
+        notes: "",
+      }
+    };
+
+    // --- DOM ---
+    const screens = Array.from(document.querySelectorAll('.screen'));
+    const errorBox = document.getElementById('errorBox');
+    const stepLabel = document.getElementById('stepLabel');
+    const pctLabel = document.getElementById('pctLabel');
+    const progressBar = document.getElementById('progressBar');
+    const dots = document.getElementById('dots');
+
+    // Stepper dots
+    const TOTAL = 10;
+    for (let i=0;i<TOTAL;i++) {
+      const d = document.createElement('div');
+      d.className = 'dot';
+      dots.appendChild(d);
+    }
+
+    function setError(msg) {
+      if (!msg) {
+        errorBox.style.display = 'none';
+        errorBox.textContent = '';
+      } else {
+        errorBox.style.display = 'block';
+        errorBox.textContent = msg;
+      }
+    }
+
+    function fmt(n) {
+      return Number(n).toLocaleString(undefined);
+    }
+
+    function renderStepper() {
+      const pct = Math.round(((state.step + 1) / TOTAL) * 100);
+      stepLabel.textContent = `Step ${state.step + 1} of ${TOTAL}`;
+      pctLabel.textContent = `${pct}%`;
+      progressBar.style.width = `${pct}%`;
+
+      const dotEls = Array.from(dots.children);
+      dotEls.forEach((el, i) => {
+        el.classList.toggle('done', i < state.step);
+        el.classList.toggle('active', i === state.step);
+      });
+    }
+
+    function showStep(step) {
+      state.step = Math.max(0, Math.min(TOTAL - 1, step));
+      setError("");
+      screens.forEach(s => s.classList.remove('active'));
+      const next = screens.find(s => Number(s.dataset.step) === state.step);
+      if (next) next.classList.add('active');
+      renderStepper();
+      updateAllNavStates();
+    }
+
+    function toggleMulti(key, value) {
+      const arr = state.form[key];
+      const idx = arr.indexOf(value);
+      if (idx >= 0) arr.splice(idx, 1);
+      else arr.push(value);
+      updateAllNavStates();
+    }
+
+    function canProceed(step) {
+      const f = state.form;
+      switch (step) {
+        case 0:
+          return Boolean(f.firstName.trim()) && Boolean(f.lastName.trim()) && Boolean(f.phone.trim()) && Boolean(f.email.trim());
+        case 1:
+          return f.useCases.length > 0;
+        case 2:
+          return f.bodyTypes.length > 0;
+        case 3:
+          return Boolean(f.make) && Boolean(f.model);
+        case 4:
+          return true;
+        case 5:
+          return f.transmissions.length > 0 && f.drivetrains.length > 0;
+        case 6:
+          return f.colors.length > 0 && f.interior.length > 0;
+        case 7:
+          return f.addons.length > 0;
+        case 8:
+          return true;
+        default:
+          return true;
+      }
+    }
+
+    function nextFrom(step) {
+      if (!canProceed(step)) {
+        setError("Please, choose at least one");
+        return;
+      }
+      showStep(step + 1);
+    }
+
+    function prevFrom(step) {
+      showStep(step - 1);
+    }
+
+    function setNextButtonState(btn, ok) {
+      btn.disabled = !ok;
+      btn.classList.toggle('ready', ok);
+    }
+
+    function updateAllNavStates() {
+      // Step 0
+      setNextButtonState(document.getElementById('nextBtn0'), canProceed(0));
+      // Step 1
+      setNextButtonState(document.getElementById('nextBtn1'), canProceed(1));
+      // Step 2
+      setNextButtonState(document.getElementById('nextBtn2'), canProceed(2));
+      // Step 3
+      setNextButtonState(document.getElementById('nextBtn3'), canProceed(3));
+      // Step 4
+      setNextButtonState(document.getElementById('nextBtn4'), canProceed(4));
+      // Step 5
+      setNextButtonState(document.getElementById('nextBtn5'), canProceed(5));
+      // Step 6
+      setNextButtonState(document.getElementById('nextBtn6'), canProceed(6));
+      // Step 7
+      setNextButtonState(document.getElementById('nextBtn7'), canProceed(7));
+    }
+
+    function buildOptionGrid(containerId, key, list, mode = 'icon') {
+      const root = document.getElementById(containerId);
+      root.innerHTML = '';
+      list.forEach(opt => {
+        const el = document.createElement('div');
+        el.className = 'opt';
+        el.tabIndex = 0;
+        el.setAttribute('role', 'button');
+        el.setAttribute('aria-pressed', 'false');
+
+        const selected = state.form[key].includes(opt.value);
+
+        let iconHtml = '';
+        if (mode === 'color') {
+          iconHtml = `<span class="colorDot" style="background:${opt.swatch}"></span>`;
+        } else {
+          iconHtml = opt.icon ? opt.icon() : '';
+        }
+
+        el.innerHTML = `
+          <div class="icon" aria-hidden="true">${mode === 'color' ? iconHtml : iconHtml}</div>
+          <div>
+            <div class="label">${opt.label}</div>
+            ${opt.sub ? `<div class="sub">${opt.sub}</div>` : ''}
+          </div>
+          <div class="check" aria-hidden="true">✓</div>
+        `;
+
+        function sync() {
+          const on = state.form[key].includes(opt.value);
+          el.classList.toggle('on', on);
+          el.setAttribute('aria-pressed', String(on));
+        }
+
+        el.addEventListener('click', () => {
+          toggleMulti(key, opt.value);
+          sync();
+        });
+        el.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggleMulti(key, opt.value);
+            sync();
+          }
+        });
+
+        // initial
+        if (selected) el.classList.add('on');
+        sync();
+        root.appendChild(el);
+      });
+    }
+
+    // --- Screen 1 bindings ---
+    const firstName = document.getElementById('firstName');
+    const lastName = document.getElementById('lastName');
+    const phone = document.getElementById('phone');
+    const email = document.getElementById('email');
+    const previewName = document.getElementById('previewName');
+    const previewMeta = document.getElementById('previewMeta');
+
+    function syncContact() {
+      state.form.firstName = firstName.value;
+      state.form.lastName = lastName.value;
+      state.form.phone = phone.value;
+      state.form.email = email.value;
+      previewName.textContent = `${state.form.firstName || 'First'} ${state.form.lastName || 'Last'}`.trim();
+      previewMeta.textContent = `${state.form.phone || 'Phone'} • ${state.form.email || 'Email'}`;
+      updateAllNavStates();
+    }
+
+    [firstName,lastName,phone,email].forEach(el => el.addEventListener('input', syncContact));
+
+    document.getElementById('nextBtn0').addEventListener('click', () => nextFrom(0));
+
+    // --- Screen 2 / 3 grids ---
+    buildOptionGrid('useCaseGrid', 'useCases', options.useCases);
+    buildOptionGrid('bodyTypeGrid', 'bodyTypes', options.bodyTypes);
+
+    document.getElementById('prevBtn1').addEventListener('click', () => prevFrom(1));
+    document.getElementById('nextBtn1').addEventListener('click', () => nextFrom(1));
+
+    document.getElementById('prevBtn2').addEventListener('click', () => prevFrom(2));
+    document.getElementById('nextBtn2').addEventListener('click', () => nextFrom(2));
+
+    // --- Screen 4 make/model ---
+    const makeSel = document.getElementById('make');
+    const modelSel = document.getElementById('model');
+
+    function makeIconText(make) {
+      return make.split(' ').map(s => s[0]).join('').slice(0,3).toUpperCase();
+    }
+
+    function populateMakes() {
+      Object.keys(MAKE_MODEL).forEach(make => {
+        const opt = document.createElement('option');
+        opt.value = make;
+        opt.textContent = make;
+        makeSel.appendChild(opt);
+      });
+    }
+
+    function populateModelsFor(make) {
+      modelSel.innerHTML = '';
+      const first = document.createElement('option');
+      first.value = '';
+      first.textContent = make ? 'Choose a model' : 'Select make first';
+      modelSel.appendChild(first);
+
+      if (!make) {
+        modelSel.disabled = true;
+        return;
+      }
+      modelSel.disabled = false;
+      (MAKE_MODEL[make] || []).forEach(model => {
+        const opt = document.createElement('option');
+        opt.value = model;
+        opt.textContent = model;
+        modelSel.appendChild(opt);
+      });
+    }
+
+    populateMakes();
+    populateModelsFor('');
+
+    makeSel.addEventListener('change', () => {
+      state.form.make = makeSel.value;
+      state.form.model = '';
+      populateModelsFor(state.form.make);
+      modelSel.value = '';
+      updateAllNavStates();
+    });
+
+    modelSel.addEventListener('change', () => {
+      state.form.model = modelSel.value;
+      updateAllNavStates();
+    });
+
+    document.getElementById('prevBtn3').addEventListener('click', () => prevFrom(3));
+    document.getElementById('nextBtn3').addEventListener('click', () => nextFrom(3));
+
+    // --- Screen 5 ranges (two sliders each) ---
+    const yearMin = document.getElementById('yearMin');
+    const yearMax = document.getElementById('yearMax');
+    const yearVal = document.getElementById('yearVal');
+
+    const mileMin = document.getElementById('mileMin');
+    const mileMax = document.getElementById('mileMax');
+    const mileVal = document.getElementById('mileVal');
+
+    const budgetMin = document.getElementById('budgetMin');
+    const budgetMax = document.getElementById('budgetMax');
+    const budgetVal = document.getElementById('budgetVal');
+
+    // init ranges
+    yearMin.max = String(THIS_YEAR);
+    yearMax.max = String(THIS_YEAR);
+    yearMin.value = String(state.form.yearMin);
+    yearMax.value = String(state.form.yearMax);
+
+    mileMin.value = String(state.form.mileMin);
+    mileMax.value = String(state.form.mileMax);
+
+    budgetMin.value = String(state.form.budgetMin);
+    budgetMax.value = String(state.form.budgetMax);
+
+    function clampPair(minEl, maxEl, minKey, maxKey) {
+      let a = Number(minEl.value);
+      let b = Number(maxEl.value);
+      if (a > b) {
+        // keep the handle the user moved (assume min changed if event target is minEl)
+        const tmp = a;
+        a = b;
+        b = tmp;
+        minEl.value = String(a);
+        maxEl.value = String(b);
+      }
+      state.form[minKey] = a;
+      state.form[maxKey] = b;
+    }
+
+    function syncRanges() {
+      clampPair(yearMin, yearMax, 'yearMin', 'yearMax');
+      clampPair(mileMin, mileMax, 'mileMin', 'mileMax');
+      clampPair(budgetMin, budgetMax, 'budgetMin', 'budgetMax');
+
+      yearVal.textContent = `${state.form.yearMin} – ${state.form.yearMax}`;
+      mileVal.textContent = `${fmt(state.form.mileMin)} – ${fmt(state.form.mileMax)} km`;
+      budgetVal.textContent = `$${fmt(state.form.budgetMin)} – $${fmt(state.form.budgetMax)}`;
+    }
+
+    [yearMin,yearMax,mileMin,mileMax,budgetMin,budgetMax].forEach(el => el.addEventListener('input', syncRanges));
+    syncRanges();
+
+    document.getElementById('prevBtn4').addEventListener('click', () => prevFrom(4));
+    document.getElementById('nextBtn4').addEventListener('click', () => nextFrom(4));
+
+    // --- Screen 6 grids ---
+    buildOptionGrid('transGrid', 'transmissions', options.transmissions);
+    buildOptionGrid('driveGrid', 'drivetrains', options.drivetrains);
+    document.getElementById('prevBtn5').addEventListener('click', () => prevFrom(5));
+    document.getElementById('nextBtn5').addEventListener('click', () => nextFrom(5));
+
+    // --- Screen 7 grids ---
+    // colors: special rendering with swatch, but we keep the same tile style
+    (function buildColors() {
+      const root = document.getElementById('colorGrid');
+      root.innerHTML = '';
+      options.colors.forEach(opt => {
+        const el = document.createElement('div');
+        el.className = 'opt';
+        el.tabIndex = 0;
+        el.setAttribute('role','button');
+        el.innerHTML = `
+          <div class="icon" aria-hidden="true"><span class="colorDot" style="background:${opt.swatch}"></span></div>
+          <div>
+            <div class="label">${opt.label}</div>
+          </div>
+          <div class="check" aria-hidden="true">✓</div>
+        `;
+
+        function sync() {
+          const on = state.form.colors.includes(opt.value);
+          el.classList.toggle('on', on);
+          el.setAttribute('aria-pressed', String(on));
+        }
+
+        el.addEventListener('click', () => { toggleMulti('colors', opt.value); sync(); });
+        el.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleMulti('colors', opt.value); sync(); }
+        });
+        sync();
+        root.appendChild(el);
+      });
+    })();
+
+    buildOptionGrid('interiorGrid', 'interior', options.interior);
+
+    document.getElementById('prevBtn6').addEventListener('click', () => prevFrom(6));
+    document.getElementById('nextBtn6').addEventListener('click', () => nextFrom(6));
+
+    // --- Screen 8 grids ---
+    buildOptionGrid('addonGrid', 'addons', options.addons);
+    document.getElementById('prevBtn7').addEventListener('click', () => prevFrom(7));
+    document.getElementById('nextBtn7').addEventListener('click', () => nextFrom(7));
+
+    // --- Screen 9 notes + submit ---
+    const notes = document.getElementById('notes');
+    notes.addEventListener('input', () => { state.form.notes = notes.value; });
+    document.getElementById('prevBtn8').addEventListener('click', () => prevFrom(8));
+
+    document.getElementById('submitBtn').addEventListener('click', () => {
+      // NOTE: Replace this with your actual submission behavior.
+      // For now, we log the payload and show the thanks screen.
+      console.log('SUBMIT PAYLOAD', JSON.parse(JSON.stringify(state.form)));
+      showStep(9);
+    });
+
+    // --- Screen 10 restart ---
+    document.getElementById('restartBtn').addEventListener('click', () => {
+      // reset state
+      state.form = {
+        firstName: "", lastName: "", phone: "", email: "",
+        useCases: [], bodyTypes: [], make: "", model: "",
+        yearMin: 2010, yearMax: THIS_YEAR,
+        mileMin: 0, mileMax: 300000,
+        budgetMin: 5000, budgetMax: 100000,
+        transmissions: [], drivetrains: [], colors: [], interior: [], addons: [], notes: "",
+      };
+
+      // reset inputs
+      firstName.value = ""; lastName.value = ""; phone.value = ""; email.value = "";
+      makeSel.value = ""; populateModelsFor('');
+      notes.value = "";
+
+      yearMin.value = String(state.form.yearMin);
+      yearMax.value = String(state.form.yearMax);
+      mileMin.value = String(state.form.mileMin);
+      mileMax.value = String(state.form.mileMax);
+      budgetMin.value = String(state.form.budgetMin);
+      budgetMax.value = String(state.form.budgetMax);
+      syncRanges();
+
+      // rebuild grids to clear selection states
+      buildOptionGrid('useCaseGrid', 'useCases', options.useCases);
+      buildOptionGrid('bodyTypeGrid', 'bodyTypes', options.bodyTypes);
+      buildOptionGrid('transGrid', 'transmissions', options.transmissions);
+      buildOptionGrid('driveGrid', 'drivetrains', options.drivetrains);
+      buildOptionGrid('interiorGrid', 'interior', options.interior);
+      buildOptionGrid('addonGrid', 'addons', options.addons);
+      // colors rebuilt
+      (function rebuildColors(){
+        const root = document.getElementById('colorGrid');
+        root.querySelectorAll('.opt').forEach(n => n.remove());
+        options.colors.forEach(opt => {
+          const el = document.createElement('div');
+          el.className = 'opt';
+          el.tabIndex = 0;
+          el.setAttribute('role','button');
+          el.innerHTML = `
+            <div class="icon" aria-hidden="true"><span class="colorDot" style="background:${opt.swatch}"></span></div>
+            <div><div class="label">${opt.label}</div></div>
+            <div class="check" aria-hidden="true">✓</div>
+          `;
+          function sync(){
+            const on = state.form.colors.includes(opt.value);
+            el.classList.toggle('on', on);
+            el.setAttribute('aria-pressed', String(on));
+          }
+          el.addEventListener('click', () => { toggleMulti('colors', opt.value); sync(); });
+          el.addEventListener('keydown', (e) => { if (e.key==='Enter'||e.key===' ') { e.preventDefault(); toggleMulti('colors', opt.value); sync(); } });
+          sync();
+          root.appendChild(el);
+        });
+      })();
+
+      syncContact();
+      showStep(0);
+    });
+
+    // --- Wire remaining nav buttons ---
+    // Step 5-8 already wired above; just ensure stepper state correct on load
+    // Also wire prev buttons for steps 5-8 already done.
+
+    // Initial preview + nav state
+    syncContact();
+    updateAllNavStates();
+    renderStepper();
+
+    // --- Dev tests (console asserts) ---
+    (function runTests(){
+      const clone = (o) => JSON.parse(JSON.stringify(o));
+      const f = clone(state.form);
+      console.assert(canProceed(0) === false, 'Step 1 should block when contact fields empty');
+      f.firstName='A'; f.lastName='B'; f.phone='1'; f.email='a@b.com';
+      state.form = f;
+      console.assert(canProceed(0) === true, 'Step 1 should allow when contact fields filled');
+      state.form = clone(state.form);
+      state.form.useCases=[];
+      console.assert(canProceed(1) === false, 'Step 2 should block when no use case selected');
+      state.form.useCases=['family'];
+      console.assert(canProceed(1) === true, 'Step 2 should allow when at least one use case selected');
+      // restore to empty again so UI starts clean
+      document.getElementById('restartBtn').click();
+    })();
+  </script>
+</body>
+</html>
